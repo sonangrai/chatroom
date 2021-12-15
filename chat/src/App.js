@@ -1,13 +1,30 @@
 import Global from "./componants/layout/Global.styled";
-import { Container } from "./componants/layout/Container.styled";
+import { useEffect, useState } from "react";
+import Chat from "./page/Chat";
+import Setname from "./page/Setname";
 
-function App() {
+/**
+ *
+ * @returns
+ */
+
+const App = () => {
+  const [user, setuser] = useState("");
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    if (user) {
+      setuser(user);
+    }
+    return () => {};
+  }, []);
+
   return (
     <>
       <Global />
-      <Container>Chat</Container>
+      {user ? <Chat /> : <Setname />}
     </>
   );
-}
+};
 
 export default App;
