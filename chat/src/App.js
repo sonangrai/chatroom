@@ -12,7 +12,7 @@ const App = () => {
   const [user, setuser] = useState("");
 
   useEffect(() => {
-    let user = localStorage.getItem("user");
+    let user = localStorage.getItem("name");
     if (user) {
       setuser(user);
     }
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <>
       <Global />
-      {user ? <Chat /> : <Setname getname={setuser} />}
+      {user ? <Chat name={user} /> : <Setname getname={setuser} />}
     </>
   );
 };
