@@ -32,7 +32,7 @@ export const Input = styled.input.attrs((props) => ({
 `;
 
 export const Button = styled.button`
-  background-color: #f48498;
+  background-color: ${(props) => (props.color ? props.color : "#f48498")};
   margin: auto;
   border: 0;
   color: #fff;

@@ -10,3 +10,10 @@ export const Header = styled.header`
     margin: 0;
   }
 `;
+
+export const Textarea = styled.textarea`
+  min-height: 60px;
+  min-width: 90vw;
+  padding: 1rem;
+  font-size: 1rem;
+`;

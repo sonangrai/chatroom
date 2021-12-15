@@ -1,11 +1,26 @@
 import React from "react";
-import { Header } from "../componants/Chat/Chat.styled";
+import { Header, Textarea } from "../componants/Chat/Chat.styled";
+import {
+  Chatcontainer,
+  Chatpage,
+} from "../componants/Chat/Chatcontainer.styled";
+import { Sendform, Sendmsg } from "../componants/Chat/Sendmsg.styled";
+import { Button } from "../componants/Setname/Setname.styled";
 
 const Chat = ({ name }) => {
   return (
-    <Header>
-      <h1>{name}</h1>{" "}
-    </Header>
+    <Chatpage>
+      <Header>
+        <h1>{name}</h1>
+      </Header>
+      <Chatcontainer>Chat here</Chatcontainer>
+      <Sendmsg>
+        <Sendform>
+          <Textarea />
+          <Button color="green">Send</Button>
+        </Sendform>
+      </Sendmsg>
+    </Chatpage>
   );
 };
 
