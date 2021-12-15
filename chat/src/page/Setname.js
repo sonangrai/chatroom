@@ -8,7 +8,7 @@ import {
   Title,
 } from "../componants/Setname/Setname.styled";
 
-const Setname = () => {
+const Setname = ({ getname }) => {
   const [name, setname] = useState("");
 
   const onChange = (e) => {
@@ -18,6 +18,7 @@ const Setname = () => {
   const setName = (e) => {
     e.preventDefault();
     localStorage.setItem("name", name);
+    getname(name);
   };
 
   return (

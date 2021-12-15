@@ -22,7 +22,7 @@ const App = () => {
   return (
     <>
       <Global />
-      {user ? <Chat /> : <Setname />}
+      {user ? <Chat /> : <Setname getname={setuser} />}
     </>
   );
 };
