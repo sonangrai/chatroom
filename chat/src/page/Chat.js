@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Header, Textarea } from "../componants/Chat/Chat.styled";
 import {
   Chatcontainer,
@@ -11,6 +11,7 @@ import { Button } from "../componants/Setname/Setname.styled";
 import io from "socket.io-client";
 
 const Chat = ({ name, getname }) => {
+  let chatRef = useRef();
   const [msg, setmsg] = useState();
   const [socket, setsocket] = useState();
   const newSocket = io(`http://${window.location.hostname}:4000`);
@@ -39,11 +40,17 @@ const Chat = ({ name, getname }) => {
    */
   const sendMsg = (e) => {
     e.preventDefault();
+    setmsg("");
     let pack = {
       name: name,
       msg: msg,
     };
     socket.emit("send message", pack);
+    chatRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   };
 
   return (
@@ -54,10 +61,14 @@ const Chat = ({ name, getname }) => {
       </Header>
       <Chatcontainer>
         <Chats socket={socket} name={name} />
+        <span
+          ref={chatRef}
+          style={{ display: "bloack", height: "100px" }}
+        ></span>
       </Chatcontainer>
       <Sendmsg>
         <Sendform onSubmit={sendMsg}>
-          <Textarea onChange={onChange} />
+          <Textarea onChange={onChange} name="msg" value={msg} />
           <Button color="green">Send</Button>
         </Sendform>
       </Sendmsg>
