@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend && rimraf ./build && tsc",
     "prestart": "npm run build",
     "client": "npm start --prefix chat",
     "start:dev": "concurrently \"nodemon src/main.ts\" \" npm run client\"",
