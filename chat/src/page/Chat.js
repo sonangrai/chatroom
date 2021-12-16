@@ -11,6 +11,7 @@ import { Button } from "../componants/Setname/Setname.styled";
 import io from "socket.io-client";
 
 const Chat = ({ name, getname }) => {
+  const [msg, setmsg] = useState();
   const [socket, setsocket] = useState();
   const newSocket = io(`http://${window.location.hostname}:4000`);
   useEffect(() => {
@@ -29,6 +30,22 @@ const Chat = ({ name, getname }) => {
     getname("");
   };
 
+  const onChange = (e) => {
+    setmsg(e.target.value);
+  };
+
+  /**
+   * send m,sg
+   */
+  const sendMsg = (e) => {
+    e.preventDefault();
+    let pack = {
+      name: name,
+      msg: msg,
+    };
+    socket.emit("send message", pack);
+  };
+
   return (
     <Chatpage>
       <Header>
@@ -39,8 +56,8 @@ const Chat = ({ name, getname }) => {
         <Chats socket={socket} name={name} />
       </Chatcontainer>
       <Sendmsg>
-        <Sendform>
-          <Textarea />
+        <Sendform onSubmit={sendMsg}>
+          <Textarea onChange={onChange} />
           <Button color="green">Send</Button>
         </Sendform>
       </Sendmsg>

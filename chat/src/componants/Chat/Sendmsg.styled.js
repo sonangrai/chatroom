@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Sendmsg = styled.section`
   position: sticky;
-  top: 100vh;
+  bottom: 0vh;
 `;
 
 export const Sendform = styled.form`

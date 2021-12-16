@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
   socket.on("connected", (msg) => {
     io.emit("user connected", msg);
   });
-  socket.on("sendmsg", (data) => {
+  socket.on("send message", (data) => {
     io.emit("msgreceived", data);
   });
 });
