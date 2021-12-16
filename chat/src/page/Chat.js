@@ -4,6 +4,7 @@ import {
   Chatcontainer,
   Chatpage,
 } from "../componants/Chat/Chatcontainer.styled";
+import Chats from "../componants/Chat/Chats";
 import { Sendform, Sendmsg } from "../componants/Chat/Sendmsg.styled";
 import { Button } from "../componants/Setname/Setname.styled";
 
@@ -19,7 +20,9 @@ const Chat = ({ name, getname }) => {
         <h1>{name}</h1>
         <span onClick={logout}>Exit</span>
       </Header>
-      <Chatcontainer>Chat here</Chatcontainer>
+      <Chatcontainer>
+        <Chats />
+      </Chatcontainer>
       <Sendmsg>
         <Sendform>
           <Textarea />
