@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import { Server } from "socket.io";
 import http from "http";
 import path from "path";
-import cors from "cors";
 require("dotenv").config();
 
 const app = express();
@@ -15,7 +14,6 @@ const io = new Server(server, {
     origin: "*",
   },
 });
-app.use(cors());
 
 /**
  * The connection event
