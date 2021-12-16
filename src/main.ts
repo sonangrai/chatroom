@@ -20,6 +20,9 @@ app.use(cors());
  * The connection event
  */
 io.on("connection", (socket) => {
+  socket.on("connected", (msg) => {
+    io.emit("user connected", msg);
+  });
   socket.on("sendmsg", (data) => {
     io.emit("msgreceived", data);
   });

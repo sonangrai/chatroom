@@ -1,13 +1,28 @@
-import React, { useEffect } from "react";
-import io from "socket.io-client";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 
-const Chats = () => {
-  const newSocket = io(`http://${window.location.hostname}:4000`);
+const Chats = ({ socket, name }) => {
+  const [newconnection, setnewconnection] = useState("");
+
   useEffect(() => {
-    console.log(newSocket);
+    if (socket)
+      socket.on("user connected", (data) => {
+        if (data === name) {
+          setnewconnection("Welcome " + name);
+          setTimeout(() => {
+            setnewconnection("");
+          }, 3000);
+        } else {
+          setnewconnection(data + " connected");
+          setTimeout(() => {
+            setnewconnection("");
+          }, 3000);
+        }
+      });
     return () => {};
-  }, []);
-  return <div></div>;
+  }, [socket]);
+
+  return <div>{newconnection !== "" && <h1>{newconnection}</h1>}</div>;
 };
 
 export default Chats;

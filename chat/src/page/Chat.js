@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { Header, Textarea } from "../componants/Chat/Chat.styled";
 import {
   Chatcontainer,
@@ -7,8 +8,22 @@ import {
 import Chats from "../componants/Chat/Chats";
 import { Sendform, Sendmsg } from "../componants/Chat/Sendmsg.styled";
 import { Button } from "../componants/Setname/Setname.styled";
+import io from "socket.io-client";
 
 const Chat = ({ name, getname }) => {
+  const [socket, setsocket] = useState();
+  const newSocket = io(`http://${window.location.hostname}:4000`);
+  useEffect(() => {
+    setsocket(newSocket);
+    newSocket.emit("connected", name);
+    return () => {
+      newSocket.close();
+    };
+  }, [setsocket]);
+
+  /**
+   * Logout
+   */
   const logout = () => {
     localStorage.removeItem("name");
     getname("");
@@ -21,7 +36,7 @@ const Chat = ({ name, getname }) => {
         <span onClick={logout}>Exit</span>
       </Header>
       <Chatcontainer>
-        <Chats />
+        <Chats socket={socket} name={name} />
       </Chatcontainer>
       <Sendmsg>
         <Sendform>
