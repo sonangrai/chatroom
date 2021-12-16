@@ -3,6 +3,7 @@ import { Server } from "socket.io";
 import http from "http";
 import path from "path";
 import cors from "cors";
+require("dotenv").config();
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.get("/", async (req: Request, res: Response) => {
 /**
  * Main server
  */
-const port: Number = 4000;
+const port = process.env.PORT || 4000;
 server.listen(port, () => {
   console.log("App running in", port);
 });
