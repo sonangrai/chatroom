@@ -5,9 +5,16 @@ export const Header = styled.header`
   top: 0px;
   background: #f48498;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   h1 {
     color: #fff;
     margin: 0;
+  }
+  span {
+    color: #fff;
+    cursor: pointer;
   }
 `;
 
