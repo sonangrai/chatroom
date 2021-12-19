@@ -30,9 +30,9 @@ io.on("connection", (socket) => {
 /**
  * Serving html
  */
-app.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname + "/../public/index.html"));
-});
+// app.get("/", async (req, res) => {
+//   res.sendFile(path.join(__dirname + "/../public/index.html"));
+// });
 
 /**
  * Main server

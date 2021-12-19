@@ -7,7 +7,8 @@
     "build": "NPM_CONFIG_PRODUCTION=false npm install --prefix chat && npm run build --prefix chat",
     "prestart": "npm run build",
     "client": "npm start --prefix chat",
-    "start:dev": "concurrently \"nodemon src/main.js\" \" npm run client\""
+    "start:dev": "concurrently \"nodemon src/main.js\" \" npm run client\"",
+    "start": "node build/main.js"
   },
   "keywords": [],
   "author": "",
