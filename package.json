@@ -4,23 +4,18 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "tsc": "tsc",
-    "build": "NPM_CONFIG_PRODUCTION=false npm install --prefix chat && npm run build --prefix chat && tsc",
+    "build": "NPM_CONFIG_PRODUCTION=false npm install --prefix chat && npm run build --prefix chat",
     "prestart": "npm run build",
     "client": "npm start --prefix chat",
-    "start:dev": "concurrently \"nodemon src/main.ts\" \" npm run client\"",
-    "start": "ts-node build/main.js"
+    "start:dev": "concurrently \"nodemon src/main.js\" \" npm run client\"",
+    "start": "node build/main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/express": "^4.17.13",
-    "@types/node": "^16.11.13",
     "nodemon": "^2.0.15",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.4"
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "concurrently": "^6.4.0",

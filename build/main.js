@@ -16,16 +16,24 @@ const express_1 = __importDefault(require("express"));
 const socket_io_1 = require("socket.io");
 const http_1 = __importDefault(require("http"));
 const path_1 = __importDefault(require("path"));
+require("dotenv").config();
 const app = (0, express_1.default)();
 //Creating an http server
 const server = http_1.default.createServer(app);
 //Implemented the server in the socket
-const io = new socket_io_1.Server(server);
+const io = new socket_io_1.Server(server, {
+    cors: {
+        origin: "*",
+    },
+});
 /**
  * The connection event
  */
 io.on("connection", (socket) => {
-    socket.on("sendmsg", (data) => {
+    socket.on("connected", (msg) => {
+        io.emit("user connected", msg);
+    });
+    socket.on("send message", (data) => {
         io.emit("msgreceived", data);
     });
 });
@@ -38,7 +46,7 @@ app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 /**
  * Main server
  */
-const port = 4000;
+const port = process.env.PORT || 4000;
 server.listen(port, () => {
     console.log("App running in", port);
 });
