@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("chat/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "chat", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "./chat/build/index.html"));
   });
 }
 
