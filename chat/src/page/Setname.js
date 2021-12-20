@@ -15,6 +15,10 @@ const Setname = ({ getname }) => {
     getname(pack);
   };
 
+  const failedGoogle = (res) => {
+    console.log(res);
+  };
+
   return (
     <Container image="https://cdn.pixabay.com/photo/2014/07/01/15/40/balloon-381334_1280.png">
       <Box>
@@ -25,7 +29,7 @@ const Setname = ({ getname }) => {
           clientId={process.env.REACT_APP_CLIENT_ID}
           buttonText="Login with Google"
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          onFailure={failedGoogle}
           cookiePolicy={"single_host_origin"}
         />
       </Box>
