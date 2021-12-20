@@ -14,7 +14,7 @@ const Chat = ({ name, getname }) => {
   let chatRef = useRef();
   const [msg, setmsg] = useState();
   const [socket, setsocket] = useState();
-  const newSocket = io(`https://${window.location.hostname}:4000`);
+  const newSocket = io(`/`);
   useEffect(() => {
     setsocket(newSocket);
     newSocket.emit("connected", name);
