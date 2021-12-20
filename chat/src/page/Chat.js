@@ -9,15 +9,16 @@ import Chats from "../componants/Chat/Chats";
 import { Sendform, Sendmsg } from "../componants/Chat/Sendmsg.styled";
 import { Button } from "../componants/Setname/Setname.styled";
 import io from "socket.io-client";
+import { Avatar } from "../componants/Chat/Avatar.styled";
 
-const Chat = ({ name, getname }) => {
+const Chat = ({ user, getname }) => {
   let chatRef = useRef();
   const [msg, setmsg] = useState();
   const [socket, setsocket] = useState();
   const newSocket = io(`/`);
   useEffect(() => {
     setsocket(newSocket);
-    newSocket.emit("connected", name);
+    newSocket.emit("connected", user.fname + " " + user.lname);
     return () => {
       newSocket.close();
     };
@@ -27,7 +28,7 @@ const Chat = ({ name, getname }) => {
    * Logout
    */
   const logout = () => {
-    localStorage.removeItem("name");
+    localStorage.removeItem("user");
     getname("");
   };
 
@@ -42,7 +43,7 @@ const Chat = ({ name, getname }) => {
     e.preventDefault();
     setmsg("");
     let pack = {
-      name: name,
+      name: user.fname + " " + user.lname,
       msg: msg,
     };
     socket.emit("send message", pack);
@@ -56,11 +57,14 @@ const Chat = ({ name, getname }) => {
   return (
     <Chatpage>
       <Header>
-        <h1>{name}</h1>
-        <span onClick={logout}>Exit</span>
+        <h1>
+          <Avatar src={user.avatar} alt="user" />
+          {user.fname + " " + user.lname}
+        </h1>
+        <span onClick={logout}>Logout</span>
       </Header>
       <Chatcontainer>
-        <Chats socket={socket} name={name} />
+        <Chats socket={socket} name={user.fname + " " + user.lname} />
         <span
           ref={chatRef}
           style={{ display: "bloack", height: "100px" }}

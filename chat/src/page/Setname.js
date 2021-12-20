@@ -1,36 +1,32 @@
-import React, { useState } from "react";
 import { Container } from "../componants/layout/Container.styled";
-import {
-  Box,
-  Button,
-  Form,
-  Input,
-  Title,
-} from "../componants/Setname/Setname.styled";
+import { Box, Title } from "../componants/Setname/Setname.styled";
+import { GoogleLogin } from "react-google-login";
 
 const Setname = ({ getname }) => {
-  const [name, setname] = useState("");
-
-  const onChange = (e) => {
-    setname(e.target.value);
-  };
-
-  const setName = (e) => {
-    e.preventDefault();
-    localStorage.setItem("name", name);
-    getname(name);
+  const responseGoogle = (res) => {
+    let pack = {
+      fname: res.profileObj.givenName,
+      lname: res.profileObj.familyName,
+      avatar: res.profileObj.imageUrl,
+      email: res.profileObj.email,
+    };
+    localStorage.setItem("user", JSON.stringify(pack));
+    getname(pack);
   };
 
   return (
     <Container image="https://cdn.pixabay.com/photo/2014/07/01/15/40/balloon-381334_1280.png">
       <Box>
         <Title>
-          <h2>Set your Nickname</h2>
+          <h2>Login / Signup</h2>
         </Title>
-        <Form onSubmit={setName}>
-          <Input onChange={onChange} />
-          <Button>Set name</Button>
-        </Form>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_CLIENT_ID}
+          buttonText="Login with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
       </Box>
     </Container>
   );

@@ -11,6 +11,8 @@ export const Header = styled.header`
   h1 {
     color: #fff;
     margin: 0;
+    display: flex;
+    align-items: center;
   }
   span {
     color: #fff;

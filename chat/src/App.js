@@ -9,21 +9,26 @@ import Setname from "./page/Setname";
  */
 
 const App = () => {
-  const [user, setuser] = useState("");
+  const [user, setuser] = useState();
 
   useEffect(() => {
-    let user = localStorage.getItem("name");
+    let user = localStorage.getItem("user");
     if (user) {
-      setuser(user);
+      setuser(JSON.parse(user));
     }
     return () => {};
   }, []);
+
+  useEffect(() => {
+    console.log(user);
+    return () => {};
+  }, [user]);
 
   return (
     <>
       <Global />
       {user ? (
-        <Chat name={user} getname={setuser} />
+        <Chat user={user} getname={setuser} />
       ) : (
         <Setname getname={setuser} />
       )}
