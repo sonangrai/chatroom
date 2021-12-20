@@ -4,7 +4,6 @@ import { GoogleLogin } from "react-google-login";
 
 const Setname = ({ getname }) => {
   const responseGoogle = (res) => {
-    console.log(res);
     let pack = {
       fname: res.profileObj.givenName,
       lname: res.profileObj.familyName,
