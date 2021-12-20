@@ -19,11 +19,6 @@ const App = () => {
     return () => {};
   }, []);
 
-  useEffect(() => {
-    console.log(user);
-    return () => {};
-  }, [user]);
-
   return (
     <>
       <Global />
