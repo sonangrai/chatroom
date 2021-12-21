@@ -3,6 +3,7 @@ const { Server } = require("socket.io");
 const http = require("http");
 const path = require("path");
 const dbConnect = require("../utils/dbConnect");
+const { ppid } = require("process");
 require("dotenv").config();
 
 const app = express();
@@ -40,6 +41,11 @@ if (process.env.NODE_ENV === "production") {
 
 //Connecting to db
 dbConnect();
+
+/**
+ * Declaring routes
+ */
+app.use("/api", require("../routes/User"));
 
 /**
  * Main server
