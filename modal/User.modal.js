@@ -1,9 +1,9 @@
-const mongose = reuire("mongoose");
+const mongoose = require("mongoose");
 
 /**
  * The user modal
  */
-const UserSchema = new mongose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     firstname: {
       type: String,

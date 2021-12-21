@@ -42,6 +42,9 @@ if (process.env.NODE_ENV === "production") {
 //Connecting to db
 dbConnect();
 
+//Validating json usage
+app.use(express.json({ extended: false }));
+
 /**
  * Declaring routes
  */
