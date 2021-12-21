@@ -1,4 +1,12 @@
 const User = require("../modal/User.modal");
+const io = require("../src/main");
+
+//A response object
+let responseObj = {
+  msg: this.msg,
+  data: this.data,
+  status: this.status,
+};
 
 /**
  * Saving user to mongodb
@@ -15,16 +23,20 @@ exports.saveUser = async (req, res) => {
 
   try {
     await userObj.save();
-    res.send({
-      msg: "User added successfully",
-      data: userObj,
-      status: 200,
-    });
+
+    //Creating success object
+    responseObj.msg = "User added successfully";
+    responseObj.data = userObj;
+    responseObj.status = 201;
+
+    //Emiting the event of success user added
+    io.emit("user-created", responseObj);
+    res.send(responseObj);
   } catch (error) {
-    res.send({
-      msg: "User addition failed",
-      data: userObj,
-      status: 500,
-    });
+    //Creating success object
+    responseObj.msg = "User adding failed";
+    responseObj.data = userObj;
+    responseObj.status = 500;
+    res.send(responseObj);
   }
 };
