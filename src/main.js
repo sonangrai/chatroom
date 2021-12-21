@@ -12,6 +12,7 @@ const app = express();
 const server = http.createServer(app);
 //Implemented the server in the socket
 const io = new Server(server, {
+  transports: ["polling"],
   cors: {
     origin: "*",
   },
@@ -30,7 +31,11 @@ io.on("connection", (socket) => {
 });
 
 //Exporting io
-exports.io = io;
+//exports.io = io;
+app.use(function (req, res, next) {
+  req.io = io;
+  next();
+});
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {

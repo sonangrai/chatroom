@@ -1,5 +1,4 @@
 const User = require("../modal/User.modal");
-const io = require("../src/main");
 
 //A response object
 let responseObj = {
@@ -30,7 +29,7 @@ exports.saveUser = async (req, res) => {
     responseObj.status = 201;
 
     //Emiting the event of success user added
-    io.emit("user-created", responseObj);
+    req.io.emit("user-created", responseObj);
     res.send(responseObj);
   } catch (error) {
     //Creating success object
