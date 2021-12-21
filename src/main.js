@@ -2,6 +2,7 @@ const express = require("express");
 const { Server } = require("socket.io");
 const http = require("http");
 const path = require("path");
+const dbConnect = require("../utils/dbConnect");
 require("dotenv").config();
 
 const app = express();
@@ -36,6 +37,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "./chat/build/index.html"));
   });
 }
+
+//Connecting to db
+dbConnect();
 
 /**
  * Main server
