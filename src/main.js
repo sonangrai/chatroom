@@ -56,6 +56,7 @@ app.use(express.json({ extended: false }));
  * Declaring routes
  */
 app.use("/api", require("../routes/User"));
+app.use("/api", require("../routes/Message"));
 
 /**
  * Main server
