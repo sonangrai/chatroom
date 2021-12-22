@@ -1,11 +1,5 @@
 const User = require("../model/User.model");
-
-//A response object
-let responseObj = {
-  msg: this.msg,
-  data: this.data,
-  status: this.status,
-};
+const { responseObj } = require("../utils/response");
 
 /**
  * Saving user to mongodb
