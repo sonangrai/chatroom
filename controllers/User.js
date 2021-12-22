@@ -1,4 +1,4 @@
-const User = require("../modal/User.modal");
+const User = require("../model/User.model");
 
 //A response object
 let responseObj = {
