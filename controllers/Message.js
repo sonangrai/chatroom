@@ -1,4 +1,5 @@
 const Message = require("../model/Message.model");
+const { responseObj } = require("../utils/response");
 
 /**
  * Save message controller
@@ -6,9 +7,10 @@ const Message = require("../model/Message.model");
  * @param {*} res
  */
 exports.saveMsg = async (req, res) => {
-  const { message } = req.body;
+  const { userId, message } = req.body;
 
   let msgObj = new Message({
+    user: userId,
     message: message,
   });
 
@@ -22,6 +24,7 @@ exports.saveMsg = async (req, res) => {
 
     //Emiting the event of success user added
     req.io.emit("message-saved", responseObj);
+    console.log(responseObj);
     res.send(responseObj);
   } catch (error) {
     //Creating success object
