@@ -24,7 +24,6 @@ exports.saveMsg = async (req, res) => {
 
     //Emiting the event of success user added
     req.io.emit("message-saved", responseObj);
-    console.log(responseObj);
     res.send(responseObj);
   } catch (error) {
     //Creating success object
