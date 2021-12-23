@@ -12,7 +12,8 @@ const Setname = ({ getname }) => {
       },
     };
     await Axios.post("/api/user", pack, config).then((res) => {
-      return res.data.data;
+      localStorage.setItem("user", JSON.stringify(res.data.data));
+      getname(res.data.data);
     });
   };
 
@@ -24,10 +25,7 @@ const Setname = ({ getname }) => {
       email: res.profileObj.email,
     };
     //Sending to mongodb
-    saveUser(JSON.stringify(pack)).then((res) => {
-      localStorage.setItem("user", JSON.stringify(res));
-    });
-    getname(pack);
+    saveUser(JSON.stringify(pack));
   };
 
   const failedGoogle = (res) => {
