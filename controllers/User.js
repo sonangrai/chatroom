@@ -22,9 +22,6 @@ exports.saveUser = async (req, res) => {
       responseObj.msg = "User login successfully";
       responseObj.data = userInDb;
       responseObj.status = 201;
-
-      //Emiting the event of success user added
-      req.io.emit("user-logged", responseObj);
       res.send(responseObj);
     } else {
       await userObj.save();
@@ -33,9 +30,6 @@ exports.saveUser = async (req, res) => {
       responseObj.msg = "User added successfully";
       responseObj.data = userObj;
       responseObj.status = 201;
-
-      //Emiting the event of success user added
-      req.io.emit("user-created", responseObj);
       res.send(responseObj);
     }
   } catch (error) {
