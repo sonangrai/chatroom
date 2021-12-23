@@ -1,8 +1,21 @@
 import { Container } from "../componants/layout/Container.styled";
 import { Box, Title } from "../componants/Setname/Setname.styled";
 import { GoogleLogin } from "react-google-login";
+import Axios from "axios";
 
 const Setname = ({ getname }) => {
+  //Saving to db
+  const saveUser = async (pack) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await Axios.post("/api/user", pack, config).then((res) => {
+      return res.data.data;
+    });
+  };
+
   const responseGoogle = (res) => {
     let pack = {
       fname: res.profileObj.givenName,
@@ -10,7 +23,10 @@ const Setname = ({ getname }) => {
       avatar: res.profileObj.imageUrl,
       email: res.profileObj.email,
     };
-    localStorage.setItem("user", JSON.stringify(pack));
+    //Sending to mongodb
+    saveUser(JSON.stringify(pack)).then((res) => {
+      localStorage.setItem("user", JSON.stringify(res));
+    });
     getname(pack);
   };
 
