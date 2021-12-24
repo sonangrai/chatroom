@@ -1,3 +1,4 @@
+const User = require("../model/User.model");
 const Message = require("../model/Message.model");
 const { responseObj } = require("../utils/response");
 
@@ -14,16 +15,22 @@ exports.saveMsg = async (req, res) => {
     message: message,
   });
 
+  //Getting User Info
+  let userInfo = await User.findById(userId);
+
   try {
     await msgObj.save();
 
+    //Creating new object with user info
+    let newObject = {
+      user: userInfo,
+      message: message,
+    };
+
     //Creating success object
     responseObj.msg = "Message added successfully";
-    responseObj.data = msgObj;
+    responseObj.data = newObject;
     responseObj.status = 201;
-
-    //Emiting the event of success user added
-    req.io.emit("message-saved", responseObj);
     res.send(responseObj);
   } catch (error) {
     //Creating success object
