@@ -10,8 +10,10 @@ import { Sendform, Sendmsg } from "../componants/Chat/Sendmsg.styled";
 import { Button } from "../componants/Setname/Setname.styled";
 import io from "socket.io-client";
 import { Avatar } from "../componants/Chat/Avatar.styled";
+import Axios from "axios";
 
 const Chat = ({ user, getname }) => {
+  const [loading, setloading] = useState(false);
   let chatRef = useRef();
   const [msg, setmsg] = useState();
   const [socket, setsocket] = useState();
@@ -36,17 +38,31 @@ const Chat = ({ user, getname }) => {
     setmsg(e.target.value);
   };
 
+  //Send message
+  const sendMsgApi = async (ms) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    await Axios.post("/api/msg", ms, config).then((res) => {
+      setloading(false);
+      socket.emit("message-sent", res.data.data);
+    });
+  };
+
   /**
    * send m,sg
    */
   const sendMsg = (e) => {
     e.preventDefault();
+    setloading(true);
     setmsg("");
     let pack = {
-      name: user.firstname + " " + user.lastname,
-      msg: msg,
+      user: user._id,
+      message: msg,
     };
-    socket.emit("send message", pack);
+    sendMsgApi(JSON.stringify(pack));
     chatRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -73,7 +89,7 @@ const Chat = ({ user, getname }) => {
       <Sendmsg>
         <Sendform onSubmit={sendMsg}>
           <Textarea onChange={onChange} name="msg" value={msg} />
-          <Button color="green">Send</Button>
+          {!loading ? <Button color="green">Send</Button> : <>Loading</>}
         </Sendform>
       </Sendmsg>
     </Chatpage>

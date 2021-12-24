@@ -23,7 +23,7 @@ exports.saveMsg = async (req, res) => {
 
     //Creating new object with user info
     let newObject = {
-      user: userInfo,
+      userInfo,
       message: message,
     };
 

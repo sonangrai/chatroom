@@ -36,7 +36,8 @@ const Chats = ({ socket, name }) => {
    */
   useEffect(() => {
     if (socket)
-      socket.on("msgreceived", (data) => {
+      socket.on("message-sent", (data) => {
+        console.log(data);
         setmessages((messages) => [...messages, data]);
       });
     return () => {};
