@@ -9,7 +9,6 @@ const { responseObj } = require("../utils/response");
  */
 exports.saveMsg = async (req, res) => {
   const { userId, message } = req.body;
-  console.log(userId);
 
   let msgObj = new Message({
     user: userId,
@@ -21,7 +20,6 @@ exports.saveMsg = async (req, res) => {
     let userInfo = await User.findById(userId);
 
     if (!userInfo) {
-      console.log("npot found");
       //Creating success object
       responseObj.msg = "User not found";
       responseObj.data = msgObj;
@@ -43,7 +41,6 @@ exports.saveMsg = async (req, res) => {
       responseObj.data = newObject;
       responseObj.status = 201;
       res.io.sockets.emit("message-sent", responseObj);
-      console.log(newObject);
       return res.send(responseObj);
     } catch (error) {
       //Creating success object
