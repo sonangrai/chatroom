@@ -21,11 +21,8 @@ const io = new Server(server, {
  * The connection event
  */
 io.on("connection", (socket) => {
-  socket.on("connected", (msg) => {
-    io.emit("user connected", msg);
-  });
-  socket.on("send message", (data) => {
-    io.emit("msgreceived", data);
+  socket.on("connected", (data) => {
+    io.emit("user connected", data);
   });
 });
 

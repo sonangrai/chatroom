@@ -9,20 +9,20 @@ import {
   User,
 } from "./Bubble.styled";
 
-const Chats = ({ socket, name }) => {
+const Chats = ({ socket, user }) => {
   const [newconnection, setnewconnection] = useState("");
   const [messages, setmessages] = useState([]);
 
   useEffect(() => {
     if (socket)
       socket.on("user connected", (data) => {
-        if (data === name) {
-          setnewconnection("Welcome " + name);
+        if (data.email === user.email) {
+          setnewconnection("Welcome " + user.firstname + " " + user.lastname);
           setTimeout(() => {
             setnewconnection("");
           }, 3000);
         } else {
-          setnewconnection(data + " connected");
+          setnewconnection(user.firstname + " " + user.lastname + " connected");
           setTimeout(() => {
             setnewconnection("");
           }, 3000);
@@ -48,18 +48,20 @@ const Chats = ({ socket, name }) => {
       {newconnection !== "" && <h1>{newconnection}</h1>}
       {messages &&
         messages.map((d, i) =>
-          d.name === name ? (
+          d.userInfo.email === user.email ? (
             <BubbleRight key={i}>
               <LfCont>
                 <Message>{d.message}</Message>
-                <User>- {d.name}</User>
+                <User>
+                  - {d.userInfo.firstname + " " + d.userInfo.lastname}
+                </User>
               </LfCont>
             </BubbleRight>
           ) : (
             <BubbleLeft key={i}>
               <RtCont>
                 <Message>{d.message}</Message>
-                <User>-{d.name}</User>
+                <User>-{d.userInfo.firstname + " " + d.userInfo.lastname}</User>
               </RtCont>
             </BubbleLeft>
           )

@@ -24,7 +24,7 @@ const Chat = ({ user, getname }) => {
   );
   useEffect(() => {
     setsocket(newSocket);
-    newSocket.emit("connected", user.firstname + " " + user.lastname);
+    newSocket.emit("connected", user);
     return () => {
       newSocket.close();
     };
@@ -62,7 +62,7 @@ const Chat = ({ user, getname }) => {
     setloading(true);
     setmsg("");
     let pack = {
-      user: user._id,
+      userId: user._id,
       message: msg,
     };
     sendMsgApi(JSON.stringify(pack));
@@ -83,7 +83,7 @@ const Chat = ({ user, getname }) => {
         <span onClick={logout}>Logout</span>
       </Header>
       <Chatcontainer>
-        <Chats socket={socket} name={user.firstname + " " + user.lastname} />
+        <Chats socket={socket} user={user} />
         <span
           ref={chatRef}
           style={{ display: "bloack", height: "100px" }}
