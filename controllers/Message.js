@@ -31,7 +31,7 @@ exports.saveMsg = async (req, res) => {
     responseObj.msg = "Message added successfully";
     responseObj.data = newObject;
     responseObj.status = 201;
-    res.io.emit("message-sent", responseObj);
+    res.io.sockets.emit("message-sent", responseObj);
     res.send(responseObj);
   } catch (error) {
     //Creating success object

@@ -38,7 +38,7 @@ const Chats = ({ socket, name }) => {
     if (socket)
       socket.on("message-sent", (data) => {
         console.log(data);
-        setmessages((messages) => [...messages, data]);
+        setmessages((messages) => [...messages, data.data]);
       });
     return () => {};
   }, [socket]);
@@ -51,14 +51,14 @@ const Chats = ({ socket, name }) => {
           d.name === name ? (
             <BubbleRight key={i}>
               <LfCont>
-                <Message>{d.msg}</Message>
+                <Message>{d.message}</Message>
                 <User>- {d.name}</User>
               </LfCont>
             </BubbleRight>
           ) : (
             <BubbleLeft key={i}>
               <RtCont>
-                <Message>{d.msg}</Message>
+                <Message>{d.message}</Message>
                 <User>-{d.name}</User>
               </RtCont>
             </BubbleLeft>

@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
 //Exporting io
 //exports.io = io;
 app.use(function (req, res, next) {
-  req.io = io;
+  res.io = io;
   next();
 });
 
