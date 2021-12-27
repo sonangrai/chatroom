@@ -1,6 +1,6 @@
-const User = require("../model/User.model");
-const Message = require("../model/Message.model");
-const { responseObj } = require("../utils/response");
+import User from "../model/User.model";
+import Message from "../model/Message.model";
+import { responseObj } from "../utils/response";
 
 /**
  * Save message controller

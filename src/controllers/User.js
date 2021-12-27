@@ -1,5 +1,5 @@
-const User = require("../model/User.model");
-const { responseObj } = require("../utils/response");
+import User from "../model/User.model";
+import { responseObj } from "../utils/response";
 
 /**
  * Saving user to mongodb

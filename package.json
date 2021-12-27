@@ -4,16 +4,21 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "start": "node src/main.js",
-    "server": "nodemon src/main.js",
+    "start": "node dist",
+    "server": "nodemon --watch .env --watch src --exec babel-node src --source-maps",
     "client": "npm start --prefix chat",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "rimraf dist && babel src --copy-files --out-dir dist --source-maps",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix chat && npm run build --prefix chat"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/node": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
     "nodemon": "^2.0.15",
     "rimraf": "^3.0.2"
   },

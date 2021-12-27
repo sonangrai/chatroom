@@ -1,9 +1,12 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+"use strict";
 
+const mongoose = require("mongoose");
+
+require("dotenv").config();
 /**
  * Connecting to the mongo db
  */
+
 
 const dbConnect = async () => {
   try {
@@ -16,3 +19,4 @@ const dbConnect = async () => {
 };
 
 module.exports = dbConnect;
+//# sourceMappingURL=dbConnect.js.map
