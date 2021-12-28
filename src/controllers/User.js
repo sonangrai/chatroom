@@ -1,10 +1,10 @@
 import User from "../model/User.model";
-import { responseObj } from "../utils/response";
+import responseObj from "../utils/response";
 
 /**
  * Saving user to mongodb
  */
-exports.saveUser = async (req, res) => {
+export const saveUser = async (req, res) => {
   const { fname, lname, email, avatar } = req.body;
 
   let userObj = new User({
@@ -19,24 +19,26 @@ exports.saveUser = async (req, res) => {
     let userInDb = await User.findOne({ email: email });
     if (userInDb) {
       //Creating success object
-      responseObj.msg = "User login successfully";
-      responseObj.data = userInDb;
-      responseObj.status = 201;
-      res.send(responseObj);
+      let successObj = new responseObj(
+        "User login successfully",
+        userInDb,
+        201
+      );
+      res.send(successObj);
     } else {
       await userObj.save();
 
       //Creating success object
-      responseObj.msg = "User added successfully";
-      responseObj.data = userObj;
-      responseObj.status = 201;
-      res.send(responseObj);
+      let successObj = new responseObj(
+        "User added successfully",
+        userInDb,
+        201
+      );
+      res.send(successObj);
     }
   } catch (error) {
     //Creating success object
-    responseObj.msg = "User adding failed";
-    responseObj.data = userObj;
-    responseObj.status = 500;
-    res.send(responseObj);
+    let failedObj = new responseObj("User adding failed", userInDb, 500);
+    res.send(failedObj);
   }
 };

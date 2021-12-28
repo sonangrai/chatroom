@@ -3,6 +3,6 @@ import { saveUser } from "../controllers/User";
 const router = Router();
 
 //Save user
-router.post("/user", saveUser);
+router.post("/", saveUser);
 
 export default router;
