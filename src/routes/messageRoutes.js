@@ -5,6 +5,6 @@ const router = Router();
 /**
  * Save the Message to mongodb
  */
-router.post("/msg", saveMsg);
+router.post("/", saveMsg);
 
 module.exports = router;

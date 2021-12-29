@@ -1,13 +1,13 @@
 import User from "../model/User.model";
 import Message from "../model/Message.model";
-import { responseObj } from "../utils/response";
+import responseObj from "../utils/response";
 
 /**
  * Save message controller
  * @param {*} req
  * @param {*} res
  */
-exports.saveMsg = async (req, res) => {
+export const saveMsg = async (req, res) => {
   const { userId, message } = req.body;
 
   let msgObj = new Message({
@@ -21,10 +21,8 @@ exports.saveMsg = async (req, res) => {
 
     if (!userInfo) {
       //Creating success object
-      responseObj.msg = "User not found";
-      responseObj.data = msgObj;
-      responseObj.status = 500;
-      return res.send(responseObj);
+      let notfoundObj = new responseObj("User not found", msgObj, 500);
+      return res.send(notfoundObj);
     }
 
     try {
@@ -37,23 +35,21 @@ exports.saveMsg = async (req, res) => {
       };
 
       //Creating success object
-      responseObj.msg = "Message added successfully";
-      responseObj.data = newObject;
-      responseObj.status = 201;
-      res.io.sockets.emit("message-sent", responseObj);
-      return res.send(responseObj);
+      let successObj = new responseObj(
+        "Message added successfully",
+        newObject,
+        201
+      );
+      res.io.sockets.emit("message-sent", successObj);
+      return res.send(successObj);
     } catch (error) {
       //Creating success object
-      responseObj.msg = "Message adding failed";
-      responseObj.data = msgObj;
-      responseObj.status = 500;
+      let failedObj = new responseObj("Message adding failed", msgObj, 500);
       return res.send(responseObj);
     }
   } catch (error) {
     //Creating success object
-    responseObj.msg = "Message adding failed";
-    responseObj.data = msgObj;
-    responseObj.status = 500;
+    let failedObj = new responseObj("Message adding failed", msgObj, 500);
     return res.send(responseObj);
   }
 };
