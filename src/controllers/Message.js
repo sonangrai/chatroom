@@ -61,10 +61,23 @@ export const saveMsg = async (req, res) => {
  */
 export const getMsg = async (req, res) => {
   try {
-    let messages = await Message.find().sort({ createdAt: "ascending" });
-    //REsponse object
-    let messagesObj = new responseObj("Messages retrieved", messages, 200);
-    return res.send(messagesObj);
+    //let messages = await Message.find().sort({ createdAt: "ascending" });
+    Message.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "userInfo",
+        },
+      },
+      { $sort: { "users.createdAt": -1 } },
+      { $unwind: "$userInfo" },
+    ]).exec((err, data) => {
+      //REsponse object
+      let messagesObj = new responseObj("Messages retrieved", data, 200);
+      return res.send(messagesObj);
+    });
   } catch (error) {
     let errorObj = new responseObj("Error Occured", error, 500);
     return res.send(errorObj);
