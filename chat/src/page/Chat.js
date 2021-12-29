@@ -17,11 +17,13 @@ const Chat = ({ user, getname }) => {
   let chatRef = useRef();
   const [msg, setmsg] = useState();
   const [socket, setsocket] = useState();
-  const newSocket = io(
-    process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_DEV_SOCKET
-      : process.env.REACT_APP_PROD_SOCKET
-  );
+  const newSocket = io({
+    path:
+      process.env.NODE_ENV === "development"
+        ? process.env.REACT_APP_DEV_SOCKET
+        : process.env.REACT_APP_PROD_SOCKET,
+    transports: ["websocket"],
+  });
   useEffect(() => {
     setsocket(newSocket);
     newSocket.emit("connected", user);
