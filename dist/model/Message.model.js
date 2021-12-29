@@ -1,14 +1,15 @@
 "use strict";
 
-const mongoose = require("mongoose");
+var _mongoose = _interopRequireDefault(require("mongoose"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Message Modal
  */
-
-
-const messageSchema = new mongoose.Schema({
+const messageSchema = new _mongoose.default.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: _mongoose.default.Schema.Types.ObjectId,
     ref: "user"
   },
   message: {
@@ -17,5 +18,5 @@ const messageSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-module.exports = mongoose.model("Message", messageSchema);
+module.exports = _mongoose.default.model("Message", messageSchema);
 //# sourceMappingURL=Message.model.js.map

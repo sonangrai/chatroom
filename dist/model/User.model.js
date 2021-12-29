@@ -1,12 +1,13 @@
 "use strict";
 
-const mongoose = require("mongoose");
+var _mongoose = _interopRequireDefault(require("mongoose"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * The user modal
  */
-
-
-const UserSchema = new mongoose.Schema({
+const UserSchema = new _mongoose.default.Schema({
   firstname: {
     type: String
   },
@@ -22,5 +23,5 @@ const UserSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-module.exports = mongoose.model("User", UserSchema);
+module.exports = _mongoose.default.model("User", UserSchema);
 //# sourceMappingURL=User.model.js.map

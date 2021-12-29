@@ -1,39 +1,41 @@
 "use strict";
 
-const User = require("../model/User.model");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.saveMsg = void 0;
 
-const Message = require("../model/Message.model");
+var _User = _interopRequireDefault(require("../model/User.model"));
 
-const {
-  responseObj
-} = require("../utils/response");
+var _Message = _interopRequireDefault(require("../model/Message.model"));
+
+var _response = _interopRequireDefault(require("../utils/response"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Save message controller
  * @param {*} req
  * @param {*} res
  */
-
-
-exports.saveMsg = async (req, res) => {
+const saveMsg = async (req, res) => {
   const {
     userId,
     message
   } = req.body;
-  let msgObj = new Message({
+  let msgObj = new _Message.default({
     user: userId,
     message: message
   });
 
   try {
     //Getting User Info
-    let userInfo = await User.findById(userId);
+    let userInfo = await _User.default.findById(userId);
 
     if (!userInfo) {
       //Creating success object
-      responseObj.msg = "User not found";
-      responseObj.data = msgObj;
-      responseObj.status = 500;
-      return res.send(responseObj);
+      let notfoundObj = new _response.default("User not found", msgObj, 500);
+      return res.send(notfoundObj);
     }
 
     try {
@@ -44,24 +46,20 @@ exports.saveMsg = async (req, res) => {
         message: message
       }; //Creating success object
 
-      responseObj.msg = "Message added successfully";
-      responseObj.data = newObject;
-      responseObj.status = 201;
-      res.io.sockets.emit("message-sent", responseObj);
-      return res.send(responseObj);
+      let successObj = new _response.default("Message added successfully", newObject, 201);
+      res.io.sockets.emit("message-sent", successObj);
+      return res.send(successObj);
     } catch (error) {
       //Creating success object
-      responseObj.msg = "Message adding failed";
-      responseObj.data = msgObj;
-      responseObj.status = 500;
-      return res.send(responseObj);
+      let failedObj = new _response.default("Message adding failed", msgObj, 500);
+      return res.send(_response.default);
     }
   } catch (error) {
     //Creating success object
-    responseObj.msg = "Message adding failed";
-    responseObj.data = msgObj;
-    responseObj.status = 500;
-    return res.send(responseObj);
+    let failedObj = new _response.default("Message adding failed", msgObj, 500);
+    return res.send(_response.default);
   }
 };
+
+exports.saveMsg = saveMsg;
 //# sourceMappingURL=Message.js.map
