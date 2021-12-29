@@ -53,3 +53,20 @@ export const saveMsg = async (req, res) => {
     return res.send(responseObj);
   }
 };
+
+/**
+ * Get all messages
+ * @param {*} req
+ * @param {*} res
+ */
+export const getMsg = async (req, res) => {
+  try {
+    let messages = await Message.find();
+    //REsponse object
+    let messagesObj = new responseObj("Messages retrieved", messages, 200);
+    return res.send(messagesObj);
+  } catch (error) {
+    let errorObj = new responseObj("Error Occured", error, 500);
+    return res.send(errorObj);
+  }
+};
