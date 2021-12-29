@@ -8,10 +8,23 @@ import {
   RtCont,
   User,
 } from "./Bubble.styled";
+import Axios from "axios";
 
 const Chats = ({ socket, user }) => {
   const [newconnection, setnewconnection] = useState("");
   const [messages, setmessages] = useState([]);
+
+  //Get message
+  const getMessagesApi = async () => {
+    let res = await Axios.get("/api/msg");
+    return res.data.data;
+  };
+  useEffect(() => {
+    getMessagesApi().then((data) => {
+      setmessages(data);
+    });
+    return () => {};
+  }, []);
 
   useEffect(() => {
     if (socket)
@@ -47,7 +60,7 @@ const Chats = ({ socket, user }) => {
       {newconnection !== "" && <h1>{newconnection}</h1>}
       {messages &&
         messages.map((d, i) =>
-          d.userInfo.email === user.email ? (
+          d.userId === user._id ? (
             <BubbleRight key={i}>
               <LfCont>
                 <Message>{d.message}</Message>
