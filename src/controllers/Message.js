@@ -61,7 +61,7 @@ export const saveMsg = async (req, res) => {
  */
 export const getMsg = async (req, res) => {
   try {
-    let messages = await Message.find();
+    let messages = await Message.find().sort({ createdAt: "ascending" });
     //REsponse object
     let messagesObj = new responseObj("Messages retrieved", messages, 200);
     return res.send(messagesObj);
