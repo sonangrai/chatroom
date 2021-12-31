@@ -49,7 +49,6 @@ const Chats = ({ socket, user }) => {
    */
   useEffect(() => {
     if (socket) {
-      console.log("socket change");
       socket.on("message-sent", (data) => {
         setmessages((messages) => [...messages, data.data]);
       });
