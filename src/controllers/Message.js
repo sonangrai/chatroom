@@ -40,17 +40,17 @@ export const saveMsg = async (req, res) => {
         newObject,
         201
       );
-      res.io.sockets.emit("message-sent", successObj);
+      res.io.emit("message-sent", successObj);
       return res.send(successObj);
     } catch (error) {
       //Creating success object
       let failedObj = new responseObj("Message adding failed", msgObj, 500);
-      return res.send(responseObj);
+      return res.send(failedObj);
     }
   } catch (error) {
     //Creating success object
     let failedObj = new responseObj("Message adding failed", msgObj, 500);
-    return res.send(responseObj);
+    return res.send(failedObj);
   }
 };
 

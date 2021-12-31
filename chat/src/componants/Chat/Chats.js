@@ -48,10 +48,12 @@ const Chats = ({ socket, user }) => {
    * Get msg
    */
   useEffect(() => {
-    if (socket)
+    if (socket) {
+      console.log("socket change");
       socket.on("message-sent", (data) => {
         setmessages((messages) => [...messages, data.data]);
       });
+    }
     return () => {};
   }, [socket]);
 
@@ -60,7 +62,7 @@ const Chats = ({ socket, user }) => {
       {newconnection !== "" && <h1>{newconnection}</h1>}
       {messages &&
         messages.map((d, i) =>
-          d.userId === user._id ? (
+          d.userId !== user._id ? (
             <BubbleRight key={i}>
               <LfCont>
                 <Message>{d.message}</Message>
