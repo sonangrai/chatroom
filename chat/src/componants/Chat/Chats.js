@@ -61,7 +61,7 @@ const Chats = ({ socket, user }) => {
       {newconnection !== "" && <h1>{newconnection}</h1>}
       {messages &&
         messages.map((d, i) =>
-          d.userId !== user._id ? (
+          d.user === user._id ? (
             <BubbleRight key={i}>
               <LfCont>
                 <Message>{d.message}</Message>
