@@ -2,3 +2,6 @@ build
 node_modules
 dist
 .env
+
+#lock
+*.lock

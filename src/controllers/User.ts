@@ -38,7 +38,7 @@ export const saveUser = async (req, res) => {
     }
   } catch (error) {
     //Creating success object
-    let failedObj = new responseObj("User adding failed", userInDb, 500);
+    let failedObj = new responseObj("User adding failed", {}, 500);
     res.send(failedObj);
   }
 };

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getMsg, saveMsg } from "../controllers/Message";
+
 const router = Router();
 
 /**
@@ -7,6 +8,9 @@ const router = Router();
  */
 router.post("/", saveMsg);
 
+/**
+ * Get the Message from mongodb
+ */
 router.get("/", getMsg);
 
-module.exports = router;
+export default router;

@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+export interface Imessage extends mongoose.Document {
+  user: object;
+  message: string;
+}
+
 /**
  * Message Modal
  */
@@ -16,4 +21,4 @@ const messageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Message", messageSchema);
+export default mongoose.model<Imessage>("Message", messageSchema);

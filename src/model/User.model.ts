@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+export interface Iuser extends mongoose.Document {
+  firstname: string;
+  lastname: string;
+  avatar: string;
+  email: string;
+}
+
 /**
  * The user modal
  */
@@ -21,4 +28,4 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", UserSchema);
+export default mongoose.model<Iuser>("User", UserSchema);
